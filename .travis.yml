@@ -1,10 +1,8 @@
-
 notifications:
   email: false
 
-language: node_js
-node_js:
-  - node
+language: rust
+rust: stable
 
 sudo: required
 
@@ -15,5 +13,6 @@ before_install:
   - docker run -dit --name emscripten -v $(pwd):/src trzeci/emscripten:sdk-incoming-64bit bash
 
 script:
-  - docker exec -it emscripten make helloworld.js
-  - make test
+  - docker exec -it emscripten git clone https://github.com/gfx-rs/gfx
+  - git -C gfx checkout pre-ll
+  - cargo build --manifest-path=gfx/Cargo.toml --example=triangle --target=asmjs-unknown-emscripten
