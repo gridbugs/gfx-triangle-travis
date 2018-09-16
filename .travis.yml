@@ -14,5 +14,5 @@ before_install:
 
 script:
   - docker exec -it emscripten git clone https://github.com/gfx-rs/gfx
-  - git -C gfx checkout pre-ll
-  - cargo build --manifest-path=gfx/Cargo.toml --example=triangle --target=asmjs-unknown-emscripten
+  - docker exec -it emscripten git -C gfx checkout pre-ll
+  - docker exec -it emscripten cargo build --manifest-path=gfx/Cargo.toml --example=triangle --target=asmjs-unknown-emscripten
